@@ -312,15 +312,15 @@ Look them up in the Racket Online Manual!
 |#
 
 
-(define (floor_div n m)
-  (if (< n m)
-      0
-      (+ 1 (floor_div (- n m) m))))
+(define (division_helper dividend divisor n)
+  (if (> (* divisor (expt 2 n)) dividend)
+      (expt 2 (- n 1))
+      (division_helper dividend divisor (+ n 1))))
 
-(define (floor_division n m)
-   (if (< n m)
+(define (floor_division dividend divisor)
+  (if (< dividend divisor)
       0
-      (floor (/ n m)))) ; above method works but runs out of memory only solution
+      (+ (division_helper dividend divisor 1) (floor_division (- dividend(*  divisor (division_helper dividend divisor 1))) divisor))))
 
 (define (sum_digits n)
   (if (< n 10)
